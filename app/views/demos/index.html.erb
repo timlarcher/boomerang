@@ -1,0 +1,23 @@
+<h1>Listing demos</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Filename</th>
+  </tr>
+
+<% @demos.each do |demo| %>
+  <tr>
+    <td><%= demo.name %></td>
+    <td><%= demo.filename %></td>
+    <td><%= link_to 'Show', demo %></td>
+    <td>| <%= link_to 'Edit', edit_demo_path(demo) %></td>
+    <td>| <%= link_to 'Load', load_demo_path(demo) %></td>
+    <td>| <%= link_to 'Delete', demo, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Demo', new_demo_path %>

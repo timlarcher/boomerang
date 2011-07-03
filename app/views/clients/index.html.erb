@@ -1,0 +1,12 @@
+<h1>Listing Clients</h1>
+
+<%= will_paginate %>
+
+<ul>
+  <%= render @clients %>
+</ul>
+
+<%= will_paginate %>
+
+
+<%= link_to 'create client', new_client_path %>

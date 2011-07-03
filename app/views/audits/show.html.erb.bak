@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+     <%= audit.id %>
+     <%= audit.assoc_id %>
+     <%= audit.trans_type %>
+     <%= audit.invoice_id %>
+     <%= audit.amount %>
+
+<%= link_to 'Edit', edit_audit_path(@audit) %> |
+<%= link_to 'Back', audits_path %>

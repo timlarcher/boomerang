@@ -1,0 +1,5 @@
+delete from matching;
+insert into matching (payee_client_id, payer_client_id, amount, status) values ( 1, 2, 10.00, "A" );
+insert into matching (payee_client_id, payer_client_id, amount, status) values ( 4, 3,  8.00, "A" );
+insert into matching (payee_client_id, payer_client_id, amount, status) values ( 2, 4, 12.00, "A" );
+insert into matching (payee_client_id, payer_client_id, amount, status) values ( 3, 1, 16.00, "A" );

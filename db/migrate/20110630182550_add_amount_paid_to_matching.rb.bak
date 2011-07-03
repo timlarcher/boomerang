@@ -1,0 +1,9 @@
+class AddAmountPaidToMatching < ActiveRecord::Migration
+  def self.up
+    add_column :matchings, :amount_paid, :decimal
+  end
+
+  def self.down
+    remove_column :matchings, :amount_paid
+  end
+end

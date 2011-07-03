@@ -1,0 +1,36 @@
+<h1>Listing audits</h1>
+
+<%= will_paginate %>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Reference</th>
+    <th>Type</th>
+    <th>Invoice</th>
+    <th>Amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @audits.each do |audit| %>
+  <tr>
+    <td><%= audit.id %></td>
+    <td><%= audit.assoc_id %></td>
+    <td><%= audit.trans_type %></td>
+    <td><%= audit.invoice_id %></td>
+    <td><%= audit.amount %></td>
+    <td><%= link_to 'Show', audit %></td>
+    <td><%= link_to 'Edit', edit_audit_path(audit) %></td>
+    <td><%= link_to 'Delete', audit, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate %>
+
+<br />
+
+<%= link_to 'New Audit', new_audit_path %>
+| <%= link_to 'Delete All', delete_all_audits_path %>

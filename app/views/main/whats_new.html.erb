@@ -1,0 +1,21 @@
+<p>
+  what's new?
+<%= will_paginate @series %>
+
+<ul class="series">
+<% @series.each do |s| %>
+<li>
+  <%= link_to s.name, s %>
+  <% if signed_in? %>
+    | <%= link_to "add to cart", s %>
+  <% end %>
+  <% if admin_player? %>
+    | <%= link_to "delete", s, :method => :delete, :confirm => "Are you sure?",
+                                :title => "Delete #{s.name}" %>
+  <% end %>
+</li>
+<% end %>
+</ul>
+
+<%= will_paginate @series %>
+</p>

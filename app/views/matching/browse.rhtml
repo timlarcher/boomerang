@@ -1,0 +1,42 @@
+ <h1><center>Browse Series</center></h1>
+
+
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Property</th>
+    <th>Series</th>
+    <th>Tokens/Pack</th>
+    <th>Available</th>
+    <th>Minted</th>
+  </tr>
+  
+<% for series in @series %>
+  <tr>
+    <td><%=h series.property.category.name %></td>
+    <td><%=h series.property.name %></td>
+    <td><%=h series.name %></td>
+    <td><%=h series.tokens_per_pack %></td>
+    <td><%=h series.packs_minted-series.packs_issued %></td>
+    <td><%=h series.release_date %></td>
+
+  <% if admin_user? %>
+    <td><%= link_to 'Show', :action => 'show', :id => series %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => series %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => series }, 
+            :confirm => 'Are you sure?', :post => true %></td>
+  <% else %>
+    <td><%= link_to 'Add to Cart', :controller => "cart", 
+            :action => 'add', :id => series.id %></td>
+  <% end %>
+  </tr>
+<% end %>
+
+</table>
+
+<%= link_to 'Previous page', { :page => @series_pages.current.previous } if @series_pages.current.previous %>
+<%= link_to 'Next page', { :page => @series_pages.current.next } if @series_pages.current.next %> 
+
+<br />
+
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>boomerang</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+
+<body>
+<header>
+<p id="logo">boomerang</p>
+<nav>
+<ul>
+  <li><%= link_to "home", root_path %></li>
+  <li><%= link_to "matching entries", matching_index_path %></li>
+  <li><%= link_to "clients", clients_path %></li>
+  <li><%= link_to "demos", demos_path %></li>
+  <li><%= link_to "audits", audits_path %></li>
+</ul>
+</nav>
+</header>
+
+<br /><br /><br />
+
+<%= yield %>
+
+<footer>
+<nav>
+<ul>
+<li><%= link_to "home", root_path %></li>
+<li> | <%= link_to "help", help_path %></li>
+<li> | <%= link_to "contact", contact_path %></li>
+<li> | <%= link_to "about", about_path %></li>
+<li> | <%= link_to "jobs", jobs_path %></li>
+</ul>
+<br />copyright &copy 2011 boomerang - all rights reserved
+</nav>
+</footer>
+
+<%= debug(params) if Rails.env.development? %>
+
+</body>
+</html>

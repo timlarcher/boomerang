@@ -1,0 +1,34 @@
+<%= form_for(@audit) do |f| %>
+  <% if @audit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@audit.errors.count, "error") %> prohibited this audit from being saved:</h2>
+
+      <ul>
+      <% @audit.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :assoc_id, "Related ID" %><br />
+    <%= f.text_field :assoc_id %>
+  </div>
+  <div class="field">
+    <%= f.label :trans_type, "Transaction Type" %><br />
+    <%= f.text_field :trans_type %>
+  </div>
+  <div class="field">
+    <%= f.label :invoice_id, "Invoice ID" %><br />
+    <%= f.text_field :invoice_id %>
+  </div>
+  <div class="field">
+    <%= f.label :amount, "Amount" %><br />
+    <%= f.text_field :amount %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

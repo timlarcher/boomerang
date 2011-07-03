@@ -1,0 +1,7 @@
+<li>
+  <%= client.id %>,
+  <%= client.name %>
+  <%= link_to "view", client %>
+    | <%= link_to "delete", client, :method => :delete, :confirm => "You sure?",
+                                :title => "Delete #{client.id}" %>
+</li>

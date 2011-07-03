@@ -1,0 +1,8 @@
+delete from clients;
+insert into clients   ( name ) values ( "Boomerang" );
+insert into clients   ( name ) values ( "Disney" );
+insert into clients   ( name ) values ( "Intel" );
+insert into clients   ( name ) values ( "Facebook" );
+insert into clients   ( name ) values ( "IBM" );
+insert into clients   ( name ) values ( "Taomee" );
+insert into clients   ( name ) values ( "HomeAway" );

@@ -1,0 +1,44 @@
+<h1>Matching Table Entries</h1>
+
+<%= will_paginate %>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Payee</th>
+    <th>Payer</th>
+    <th>Amount</th>
+    <th>Paid</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @matching.each do |m| %>
+    <% case m.status %>
+    <% when "C" %>
+      <tr class="closed_listing">
+    <% when "P" %>
+      <tr class="partial_listing">
+    <% else %>
+      <tr class="open_listing">
+    <% end %>
+    <td><%= m.id %></td>
+    <td><%= m.payee_client_id %></td>
+    <td><%= m.payer_client_id %></td>
+    <td><%= m.amount %></td>
+    <td><%= m.amount_paid %></td>
+    <td><%= m.status %></td>
+    <td><%= link_to "view", m %></td>
+    <td><%= link_to "delete", m, :method => :delete,
+                                 :confirm => "You sure?",
+                                 :title => "Delete #{m.id}" %></td>
+  </tr>
+  <% end %>
+</ul>
+
+<%= will_paginate %>
+
+
+<%= link_to 'create matching entry', new_matching_path %>
+| <%= link_to 'perform matching run', do_match_matching_index_path %>

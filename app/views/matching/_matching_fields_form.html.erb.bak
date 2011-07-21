@@ -1,0 +1,22 @@
+<%= form_for( @matching, :url => { :action => "put" } ) do |f| %>
+ <%= render 'shared/error_messages', :object => f.object %>
+ <div class="field">
+    <%= f.label :payee_client_id, "Payee Client ID" %><br />
+    <%= f.text_field :payee_client_id %>
+  </div>
+ <div class="field">
+    <%= f.label :payer_client_id, "Payer Client ID" %><br />
+    <%= f.text_field :payer_client_id %>
+  </div>
+ <div class="field">
+    <%= f.label :amount, "Invoice amount" %><br />
+    <%= f.text_field :amount %>
+  </div>
+ <div class="field">
+    <%= f.label :status, "Status" %><br />
+    <%= f.text_field :status %>
+  </div>
+  <div class="actions">
+    <%= f.submit "submit" %>
+  </div>
+<% end %>

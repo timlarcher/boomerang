@@ -14,18 +14,43 @@
     <th></th>
   </tr>
 
+<% saved_audit_assoc_id = @audits.first.assoc_id %>
+<% id_audit = :audit_plain %>
+<% audit_amount = 0.0 %>
 <% @audits.each do |audit| %>
-  <tr>
+  <% audit_amount += audit.amount %>
+  <% if saved_audit_assoc_id != audit.assoc_id %>
+    <% saved_audit_assoc_id = audit.assoc_id %>
+    <% if id_audit == :audit_plain %>
+      <% id_audit = :audit_shaded %>
+    <% else %>
+      <% id_audit = :audit_plain %>
+    <% end %>
+  <% end %>
+  <% if id_audit == :audit_plain %>
+    <tr id="audit_plain">
+  <% else %>
+    <tr id="audit_shaded">
+  <% end %>
     <td><%= audit.id %></td>
     <td><%= audit.assoc_id %></td>
     <td><%= audit.trans_type %></td>
     <td><%= audit.invoice_id %></td>
-    <td><%= audit.amount %></td>
+    <td><%= number_to_currency(audit.amount) %></td>
     <td><%= link_to 'Show', audit %></td>
     <td><%= link_to 'Edit', edit_audit_path(audit) %></td>
     <td><%= link_to 'Delete', audit, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
+
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><%= number_to_currency(audit_amount) %></td>
+  </tr>
+
 </table>
 
 <%= will_paginate %>
@@ -33,5 +58,4 @@
 <br />
 
 <%= link_to 'New Audit', new_audit_path %>
-| <%= link_to 'Delete All', :confirm => 'Are you sure?',
-                            :method => :delete_all %>
+| <%= link_to 'Delete All', delete_all_audits_path %>

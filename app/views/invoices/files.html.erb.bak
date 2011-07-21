@@ -1,0 +1,31 @@
+<section id="invoices">
+
+<h1>Invoice Files</h1>
+
+<% if admin_user? %>
+  <%= form_tag( files_invoices_path, :method => :get ) do %>
+  <%= label_tag( :for_client_id, "client:")%>
+  <%= text_field_tag( :for_client_id )%>
+  <%= submit_tag( "display" )%>
+<% end %>
+
+<% end %>
+
+Files in <%= @dirname %>:
+
+<table>
+  <tr>
+    <td>Name</td>
+    <td></td>
+  </tr>
+  <% @files.each do |f| %>
+    <td><%= f.to_s %></td>
+    <td><%= link_to "load", invoices_load_path( :dir => @dirname, :name => f.to_s ) %></td>
+    <td> | <%= link_to "delete", delete_file_invoice_path( :dir => @dirname, :name => f.to_s ) %></td>
+    <td> | <%= link_to "view", view_file_invoice_path( :dir => @dirname, :name => f.to_s ) %></td>
+  </tr>
+  <% end %>
+</table>
+
+<br />
+</section>

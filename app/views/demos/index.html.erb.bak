@@ -21,5 +21,3 @@
 <br />
 
 <%= link_to 'New Demo', new_demo_path %>
-| <%= link_to 'Delete All', @demos, :confirm => 'Are you sure?',
-                                    :method => :delete_all %>

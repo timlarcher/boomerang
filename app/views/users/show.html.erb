@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+Name, ID: <%= @user.handle %>, <%= @user.id %>
+<br />Real name: <%= @user.first_name %> <%= @user.last_name %>
+<br /><br />
+<%= link_to 'edit', edit_user_path(@user) %>
+| <%= link_to "delete", @user, :method => :delete, :confirm => "You sure?",
+                              :title => "Delete #{@user.handle}" %>
+

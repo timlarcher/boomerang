@@ -13,18 +13,38 @@
 <nav>
 <ul>
   <li><%= link_to "home", root_path %></li>
-  <li><%= link_to "matching entries", matching_index_path %></li>
-  <li><%= link_to "clients", clients_path %></li>
-  <li><%= link_to "demos", demos_path %></li>
-  <li><%= link_to "audits", audits_path %></li>
+  <% if signed_in? %>
+    <li>|</li>
+    <li><%= link_to "invoices", invoices_path %></li>
+    <li><%= link_to "transactions", audits_path %></li>
+    <li><%= link_to "reports", reports_path %></li>
+  <% end %>
+  <% if admin_user? %>
+    <li>|</li>
+    <li><%= link_to "matching", matching_index_path %></li>
+    <li><%= link_to "demos", demos_path %></li>
+    <li><%= link_to "clients", clients_path %></li>
+    <li><%= link_to "users", users_path %></li>
+  <% end %>
+  <li>|</li>
+  <% if signed_in? %>
+    <li><%= link_to "sign out", signout_path %></li>
+  <% else %>
+    <li><%= link_to "sign in", signin_path %></li>
+  <% end %>
 </ul>
 </nav>
 </header>
 
-<br /><br /><br />
+<br /><br />
+<% if signed_in? %>
+  <h2>You are signed in as <%= current_user.handle %>.</h2>
+  <br />
+<% end %>
 
 <%= yield %>
 
+<br /><br /><br />
 <footer>
 <nav>
 <ul>
@@ -34,11 +54,13 @@
 <li> | <%= link_to "about", about_path %></li>
 <li> | <%= link_to "jobs", jobs_path %></li>
 </ul>
-<br />copyright &copy 2011 boomerang - all rights reserved
+copyright &copy 2011 boomerang - all rights reserved
 </nav>
 </footer>
 
-<%= debug(params) if Rails.env.development? %>
+
+<!-- <%= debug(params) if Rails.env.development? %> -->
 
 </body>
 </html>
+

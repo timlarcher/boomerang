@@ -1,0 +1,10 @@
+<li>
+  <%= link_to matching.id, matching %>
+,<%= matching.payee_client_id %>
+,<%= matching.payer_client_id %>
+,<%= matching.amount %>
+,<%= matching.amount_paid %>
+,<%= matching.status %>
+    | <%= link_to "delete", matching, :method => :delete, :confirm => "You sure?",
+                                :title => "Delete #{matching.id}" %>
+</li>

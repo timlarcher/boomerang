@@ -1,5 +1,7 @@
 class MainController < ApplicationController
 
+  include SessionsHelper
+
   def welcome
     @title = "Home"
   end
@@ -25,11 +27,6 @@ class MainController < ApplicationController
   end
 
   def search
-  end
-
-  def whats_new
-    @title = "what\'s new?"
-    @series = Series.paginate( :page => params[:page] )
   end
 
 end

@@ -1,18 +1,75 @@
+<section id="matching">
+
 <h1>Matching Table Entries</h1>
 
-<%= will_paginate %>
+<% if @before_matching != nil %>
+<h2>Before</h2>
 
 <table>
   <tr>
-    <th>ID</th>
-    <th>Payee</th>
-    <th>Payer</th>
-    <th>Amount</th>
-    <th>Paid</th>
-    <th>Status</th>
-    <th></th>
-    <th></th>
+    <td>ID</td>
+    <td>Payee</td>
+    <td>Payer</td>
+    <td>Amount</td>
+    <td>Paid</td>
+    <td>Unpaid</td>
+    <td>Status</td>
+    <td></td>
+    <td></td>
   </tr>
+
+  <% @before_matching.each do |m| %>
+    <% case m.status %>
+    <% when "C" %>
+      <tr class="closed_listing">
+    <% when "P" %>
+      <tr class="partial_listing">
+    <% else %>
+      <tr class="open_listing">
+    <% end %>
+    <% @amount += m.amount %>
+    <% @amount_paid += m.amount_paid %>
+    <td><%= m.id %></td>
+    <td><%= m.payee_client_id %></td>
+    <td><%= m.payer_client_id %></td>
+    <td><%= number_to_currency(m.amount)%></td>
+    <td><%= number_to_currency(m.amount_paid) %></td>
+    <td><%= number_to_currency(m.amount - m.amount_paid) %></td>
+    <td><%= m.status %></td>
+  </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><%= number_to_currency(@amount) %></td>
+    <td><%= number_to_currency(@amount_paid) %></td>
+    <td><%= number_to_currency(@amount - @amount_paid) %></td>
+    <td><%= number_to_percentage(@amount_paid / @amount * 100, :precision=>0) %></td>
+    <td></td>
+    <td></td>
+
+  </tr>
+</table>
+
+<h2>After</h2>
+<% end %>
+
+<table>
+  <tr>
+    <td>ID</td>
+    <td>Payee</td>
+    <td>Payer</td>
+    <td>Amount</td>
+    <td>Paid</td>
+    <td>Unpaid</td>
+    <td>Status</td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  <% @amount = 0.0 %>
+  <% @amount_paid = 0.0 %>
 
   <% @matching.each do |m| %>
     <% case m.status %>
@@ -23,22 +80,99 @@
     <% else %>
       <tr class="open_listing">
     <% end %>
+    <% @amount += m.amount %>
+    <% @amount_paid += m.amount_paid %>
     <td><%= m.id %></td>
     <td><%= m.payee_client_id %></td>
     <td><%= m.payer_client_id %></td>
-    <td><%= m.amount %></td>
-    <td><%= m.amount_paid %></td>
+    <td><%= number_to_currency(m.amount)%></td>
+    <td><%= number_to_currency(m.amount_paid) %></td>
+    <td><%= number_to_currency(m.amount - m.amount_paid) %></td>
     <td><%= m.status %></td>
-    <td><%= link_to "view", m %></td>
-    <td><%= link_to "delete", m, :method => :delete,
+    <% if admin_user? %>
+    <td><%= link_to "edit", edit_matching_path(m) %></td>
+    <td><%= link_to "delete", m, :metdod => :delete,
                                  :confirm => "You sure?",
                                  :title => "Delete #{m.id}" %></td>
+    <% end %>
   </tr>
   <% end %>
-</ul>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><%= number_to_currency(@amount) %></td>
+    <td><%= number_to_currency(@amount_paid) %></td>
+    <td><%= number_to_currency(@amount - @amount_paid) %></td>
+    <td><% if @amount > 0.0 %>
+        <%= number_to_percentage(@amount_paid / @amount * 100, :precision=>0) %>
+        <% end %>
+    </td>
+    <td></td>
+    <td></td>
 
-<%= will_paginate %>
+  </tr>
+</table>
 
-
-<%= link_to 'create matching entry', new_matching_path %>
+<br />
+<% if admin_user? %>
+<%= link_to 'create entry', new_matching_path %>
 | <%= link_to 'perform matching run', do_match_matching_index_path %>
+| <%= link_to 'delete all', delete_all_matching_index_path %>
+<% end %>
+</section>
+
+
+<section id="audits">
+<h1>Audit Table Entries</h1>
+
+<table>
+  <tr>
+    <td>ID</td>
+    <td>Reference</td>
+    <td>Type</td>
+    <td>Invoice</td>
+    <td>Amount</td>
+  </tr>
+
+
+<% saved_audit_assoc_id = @audits.first.assoc_id if @audits.first %>
+<% id_audit = :audit_plain %>
+<% audit_amount = 0.0 %>
+<% @audits.each do |audit| %>
+  <% audit_amount += audit.amount %>
+  <% if saved_audit_assoc_id != audit.assoc_id %>
+    <% saved_audit_assoc_id = audit.assoc_id %>
+    <% if id_audit == :audit_plain %>
+      <% id_audit = :audit_shaded %>
+    <% else %>
+      <% id_audit = :audit_plain %>
+    <% end %>
+  <% end %>
+  <% if id_audit == :audit_plain %>
+    <tr id="audit_plain">
+  <% else %>
+    <tr id="audit_shaded">
+  <% end %>
+    <td><%= audit.id %></td>
+    <td><%= audit.assoc_id %></td>
+    <td><%= audit.trans_type %></td>
+    <td><%= audit.invoice_id %></td>
+    <td><%= number_to_currency(audit.amount) %></td>
+  </tr>
+<% end %>
+
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><%= number_to_currency(audit_amount) %></td>
+  </tr>
+
+</table>
+
+<br />
+
+<%= link_to 'delete all', delete_all_audits_path %>
+</section>

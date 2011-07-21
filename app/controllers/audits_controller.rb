@@ -1,5 +1,8 @@
 class AuditsController < ApplicationController
 
+  include SessionsHelper
+  before_filter :authenticate
+
   # GET /audits
   # GET /audits.xml
   def index

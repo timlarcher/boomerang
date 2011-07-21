@@ -84,7 +84,7 @@ class AuditsController < ApplicationController
 
   def delete_all
     Audit.all.each { |a| a.destroy }
-    redirect_to home_path
+    redirect_to root_path
   end
 
 end

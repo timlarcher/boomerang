@@ -1,0 +1,27 @@
+<h1>Listing Clients</h1>
+
+<%= will_paginate %>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+  </tr>
+
+<% @clients.each do |client| %>
+  <tr>
+    <td><%= client.id %></td>
+    <td><%= client.name %></td>
+    <td><%= link_to 'show', client %></td>
+    <td><%= link_to 'edit', edit_client_path(client) %></td>
+    <td><%= link_to 'match', match_clients_path(client) %></td>
+    <td><%= link_to 'delete', client, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate %>
+
+<br />
+
+<%= link_to 'create client', new_client_path %>

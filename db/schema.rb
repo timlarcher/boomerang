@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110630182550) do
+ActiveRecord::Schema.define(:version => 20110718141516) do
 
   create_table "audit", :force => true do |t|
     t.string   "assoc_id",   :null => false
@@ -39,6 +39,19 @@ ActiveRecord::Schema.define(:version => 20110630182550) do
     t.datetime "updated_at"
   end
 
+  create_table "invoices", :force => true do |t|
+    t.integer  "payee_client_id"
+    t.integer  "payer_client_id"
+    t.string   "invoice_number"
+    t.date     "invoice_date"
+    t.string   "po_number"
+    t.date     "po_date"
+    t.string   "memo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "amount"
+  end
+
   create_table "matching", :force => true do |t|
     t.integer  "payee_client_id", :null => false
     t.integer  "payer_client_id", :null => false
@@ -47,6 +60,17 @@ ActiveRecord::Schema.define(:version => 20110630182550) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.decimal  "amount_paid"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string  "first_name"
+    t.string  "last_name"
+    t.string  "handle"
+    t.string  "email"
+    t.string  "encrypted_password"
+    t.string  "password_salt"
+    t.boolean "admin",              :default => false
+    t.integer "client_id"
   end
 
 end

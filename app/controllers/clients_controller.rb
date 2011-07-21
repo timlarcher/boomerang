@@ -1,9 +1,7 @@
 class ClientsController < ApplicationController
 
-  #include SessionsHelper
-
-  #before_filter :authenticate, :except => [ :show, :index ]
-  #before_filter :admin_player, :except => [ :show, :index ]
+  include SessionsHelper
+  before_filter :authenticate
 
   def new
     @client = Client.new
@@ -52,6 +50,19 @@ class ClientsController < ApplicationController
     @clients = Client.all.paginate( :page => params[:page] )
     render 'index'
     #redirect_to client_path
+  end
+
+  def match
+    @before_matching = Matching.all
+    logger.debug "params id = #{params[:id]} "
+    Matcher::do_match( params[:id] )
+    @amount = 0.0
+    @amount_paid = 0.0
+    @audit_amount = 0.0
+    @title = "list matching"
+    @matching = Matching.all
+    @audits = Audit.all
+    render 'matching/index'
   end
 
 end

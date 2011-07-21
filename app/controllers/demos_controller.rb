@@ -1,5 +1,8 @@
 class DemosController < ApplicationController
 
+  include SessionsHelper
+  before_filter :authenticate
+
   # GET /demos
   # GET /demos.xml
   def index
@@ -83,6 +86,11 @@ class DemosController < ApplicationController
   end
 
   def load
+    Matching.delete_all
+    self.add
+  end
+
+  def add
     Matching.load_data( Demo.find(params[:id]).filename )
     redirect_to matching_index_path
   end

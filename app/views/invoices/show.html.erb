@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+<h1>Matching Entry Detail</h1>
+<br />
+<p>ID: <%= @matching.id %>
+<br />Payee Client ID: <%= @matching.payee_client_id %>
+<br />Payer Client ID: <%= @matching.payer_client_id %>
+<br />Invoice Amount: <%= @matching.amount %>
+<br />Status: <%= @matching.status %>
+<br /><br />
+
+  <%= link_to 'edit this matching', edit_matching_path(@matching) %>
+</p>

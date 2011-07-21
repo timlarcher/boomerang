@@ -2,6 +2,10 @@
   width: 710px;
 }
 
+.error {
+  color: #ff0000;
+}
+
 #logo {
   font-size: 32px;
 }
@@ -11,6 +15,7 @@ body {
 
 header {
   text-align: left;
+  width: 100%;
 }
 
 section {
@@ -21,6 +26,14 @@ section {
 
 section h1 {
   font-size: 200%;
+}
+
+section#audits {
+  float: right;
+}
+
+section#matching {
+  float: left;
 }
 
 h2 { font-size: 150%; }
@@ -74,6 +87,7 @@ header nav ul li {
 header nav ul li a {
   padding: 0 5px;
   font-weight: bold;
+  color: #09c;
 }
 
 header nav ul li a:visited {
@@ -97,6 +111,14 @@ a.signup_button {
   font-size: 150%;
   font-weight: bold;
   padding: 20px;
+}
+
+#audit_plain {
+  background-color: #ffffff;
+}
+
+#audit_shaded {
+  background-color: #cccccc;
 }
 
 .open_listing {
@@ -123,6 +145,13 @@ a.signup_button {
   -moz-border-radius:    10px;
   -webkit-border-radius: 10px;
   border-radius:         10px;
+}
+
+footer {
+  clear: both;
+  width: 100%;
+  display: block;
+  text-align: center;
 }
 
 footer nav {

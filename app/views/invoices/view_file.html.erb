@@ -1,0 +1,12 @@
+<section id="invoices">
+
+<h2>Contents of <%= @dirname + @filename %></h2>
+
+<br />
+
+  <% @file_lines.each do |f| %>
+    <%= f %><br />
+  <% end %>
+
+<br />
+</section>

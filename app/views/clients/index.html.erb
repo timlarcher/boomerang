@@ -2,11 +2,26 @@
 
 <%= will_paginate %>
 
-<ul>
-  <%= render @clients %>
-</ul>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+  </tr>
+
+<% @clients.each do |client| %>
+  <tr>
+    <td><%= client.id %></td>
+    <td><%= client.name %></td>
+    <td><%= link_to 'show', client %></td>
+    <td><%= link_to 'edit', edit_client_path(client) %></td>
+    <td><%= link_to 'match', match_client_path(client) %></td>
+    <td><%= link_to 'delete', client, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
 
 <%= will_paginate %>
 
+<br />
 
 <%= link_to 'create client', new_client_path %>

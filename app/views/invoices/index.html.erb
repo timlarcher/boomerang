@@ -1,0 +1,58 @@
+<section id="invoices">
+
+<%= link_to "files", files_invoices_path %>
+| <%= link_to "delete all", delete_all_invoices_path %>
+
+<h1>Invoice Table Entries</h1>
+
+<table>
+  <tr>
+    <td>ID</td>
+    <td>Payee</td>
+    <td>Payer</td>
+    <td>Amount</td>
+    <td>Invoice No</td>
+    <td>Invoice Date</td>
+    <td>PO Number</td>
+    <td>PO Date</td>
+    <td>Memo</td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  <% @amount = 0.0 %>
+
+  <% @invoices.each do |i| %>
+    <% @amount += i.amount %>
+    <td><%= i.id %></td>
+    <td><%= i.payee_client_id %></td>
+    <td><%= i.payer_client_id %></td>
+    <td><%= number_to_currency(i.amount)%></td>
+    <td><%= i.invoice_number %></td>
+    <td><%= i.invoice_date %></td>
+    <td><%= i.po_number %></td>
+    <td><%= i.po_date %></td>
+    <td><%= i.memo %></td>
+    <td><%= link_to "edit", edit_matching_path(i) %></td>
+    <td><%= link_to "delete", i, :metdod => :delete,
+                                 :confirm => "You sure?",
+                                 :title => "Delete #{i.id}" %></td>
+  </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><%= number_to_currency(@amount) %></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
+<br />
+</section>

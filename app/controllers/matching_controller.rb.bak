@@ -1,9 +1,9 @@
 class MatchingController < ApplicationController
 
-  #include SessionsHelper
+  include SessionsHelper
+  include Matcher
 
-  #before_filter :authenticate, :except => [ :show, :index ]
-  #before_filter :admin_player, :except => [ :show, :index ]
+  before_filter :authenticate
 
   def new
     @matching = Matching.new
@@ -22,8 +22,12 @@ class MatchingController < ApplicationController
   end
 
   def index
-    @title = "list matching"
-    @matching = Matching.all.paginate( :page => params[:page] )
+    if admin_user?
+      @matching = Matching.all.paginate( :page => params[:page] )
+      @audits = Audit.all.paginate( :page => params[:page] )
+    else
+      @matching = Matching.where( "payee_client_id = ? or payer_client_id = ?", current_user.client_id, current_user.client_id ).paginate( :page => params[:page] )
+    end
   end
 
   def show
@@ -52,11 +56,18 @@ class MatchingController < ApplicationController
     redirect_to matching_path
   end
 
+  def delete_all
+    Matching.all.each { |m| m.destroy }
+    redirect_to root_path
+  end
+
   def do_match
+    @before_matching = Matching.all.paginate( :page => params[:page] )
     Client.find(:all).each do |client|
       Matcher::do_match( client.id )
     end
-    redirect_to matching_index_path
+    self.index
+    render 'index'
   end
 
 end

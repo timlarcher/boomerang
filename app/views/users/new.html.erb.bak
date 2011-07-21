@@ -1,0 +1,2 @@
+<h1>sign up</h1>
+<%= render 'player_fields_form' %>

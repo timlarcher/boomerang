@@ -1,6 +1,7 @@
 class ClientsController < ApplicationController
 
   include SessionsHelper
+
   before_filter :authenticate
 
   def new
@@ -50,6 +51,23 @@ class ClientsController < ApplicationController
     @clients = Client.all.paginate( :page => params[:page] )
     render 'index'
     #redirect_to client_path
+  end
+
+  def offers
+    m = Matching.payers(params[:id])
+    if m
+      @payables = 0.0
+      m.each do |me|
+        @payables += me.amount_unpaid
+      end
+    else
+      flash[:error] = "There are no payables for that client."
+      redirect_to( clients_path ) and return
+    end
+    @client = Client.find(params[:id])
+    @bids = Bid.for_client(params[:id]).active.paginate( :page => params[:page] )
+    @offers = Offer.for_client(params[:id]).active.paginate( :page => params[:page] )
+    render 'clients/offers'
   end
 
   def match

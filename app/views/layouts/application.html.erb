@@ -19,16 +19,17 @@
     <li><%= link_to "transactions", audits_path %></li>
     <li><%= link_to "reports", reports_path %></li>
     <li><%= link_to "matching", matching_index_path %></li>
+    <li><%= link_to "clients", clients_path %></li>
   <% end %>
   <% if admin_user? %>
     <li>|</li>
     <li><%= link_to "demos", demos_path %></li>
-    <li><%= link_to "clients", clients_path %></li>
     <li><%= link_to "users", users_path %></li>
   <% end %>
   <li>|</li>
   <% if signed_in? %>
     <li><%= link_to "sign out", signout_path %></li>
+    <li><%= link_to "profile", user_path(current_user) %></li>
   <% else %>
     <li><%= link_to "sign in", signin_path %></li>
   <% end %>

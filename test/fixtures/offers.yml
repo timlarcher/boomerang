@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  type: MyString
+  client_id: 1
+  user_id: 1
+  quantity: 1
+  amount: 1
+
+two:
+  type: MyString
+  client_id: 1
+  user_id: 1
+  quantity: 1
+  amount: 1

@@ -1,0 +1,63 @@
+<h1>Trading in <%= @client.name %> - <%= number_to_currency(@payables) %>
+available for purchase.</h1>
+
+<section class="bid">
+<h2>Bids</h2>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>User</th>
+    <th>Quantity</th>
+    <th>Amount</th>
+  </tr>
+  <% @bids.each do |b| %>
+  <tr>
+    <td><%= b.id %></td>
+    <td><%= b.user_id %></td>
+    <td><%= b.quantity %></td>
+    <td><%= b.amount %></td>
+    <td>
+      <% if current_user.accept_bids %>
+        <%= link_to 'accept', accept_client_bid_path(b) %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+<% if current_user.client.id != @client.id and current_user.make_bids %>
+  <br />
+  <%= link_to 'bid', new_client_bid_path(@client)  %>
+<% end %>
+</section>
+
+
+<section class="offer">
+<h2>Offers</h2>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>User</th>
+    <th>Quantity</th>
+    <th>Amount</th>
+  </tr>
+  <% @offers.each do |o| %>
+  <tr>
+    <td><%= o.id %></td>
+    <td><%= o.user_id %></td>
+    <td><%= o.quantity %></td>
+    <td><%= o.amount %></td>
+    <td>
+      <% if current_user.accept_offers %>
+        <%= link_to 'accept', accept_client_offer_path(o) %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<% if current_user.make_offers and current_user.holds_debt_of?(@client.id) %>
+  <br />
+  <%= link_to 'offer', new_client_offer_path(@client) %>
+<% end %>
+</section>

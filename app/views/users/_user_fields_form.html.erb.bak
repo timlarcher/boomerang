@@ -17,8 +17,20 @@
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :admin %><br />
+    <%= f.label :client_id %><br />
+    <%= f.text_field :client_id %>
+  </div>
+  <div class="field">
+    <%= f.label :admin %>
     <%= f.check_box :admin %>
+    <%= f.label :accept_bids %>
+    <%= f.check_box :accept_bids %>
+    <%= f.label :make_bids %>
+    <%= f.check_box :make_bids %>
+    <%= f.label :accept_offers %>
+    <%= f.check_box :accept_offers %>
+    <%= f.label :make_offers %>
+    <%= f.check_box :make_offers %>
   </div>
   <div class="field">
     <%= f.label :password %><br />

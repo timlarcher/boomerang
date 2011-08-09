@@ -7,11 +7,11 @@ class MatchingController < ApplicationController
 
   def new
     @matching = Matching.new
-    @title = "add new matching"
   end
 
   def create
-    @matching = Matching.new(params[:matching])
+    @matching = Matching.new( params[:matching] )
+    @matching.amount_paid = 0.0
     if @matching.save
       flash.now[:success] = "#{@matching.id} added."
       redirect_to @matching

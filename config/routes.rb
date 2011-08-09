@@ -14,15 +14,27 @@ Boomerang::Application.routes.draw do
     get 'delete_all', :on => :collection
   end
 
-  resources :reports
-
-  resources :matching do
+  ActiveSupport::Inflector.inflections do |inflect|
+    inflect.irregular 'matching', 'matching'
+  end
+  resources :matching, :as => "matching" do
     get 'do_match', :on => :collection
     get 'delete_all', :on => :collection
   end
 
+  match 'offers', :to => "offers#index", :via => :get
+  match 'bids', :to => "bids#index", :via => :get
+
   resources :clients do
+    get 'offers', :on => :member
+    get 'bids', :on => :member
     get 'match', :on => :member
+    resources :offers do
+      get 'accept', :on => :member
+    end
+    resources :bids do
+      get 'accept', :on => :member
+    end
   end
 
   resources :audits do
@@ -33,6 +45,8 @@ Boomerang::Application.routes.draw do
     get 'load', :on => :member
     get 'add', :on => :member
   end
+
+  match '/reports', :to => 'reports#index'
 
   match '/home', :to => 'main#welcome'
   match '/contact', :to => 'main#contact'

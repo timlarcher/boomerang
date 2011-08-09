@@ -4,11 +4,29 @@
 
 <table>
   <tr class="users">
-    <th>first name</th>
-    <th>last name</th>
+    <th>name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th>bids</th>
+    <th></th>
+    <th>offers</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr class="users">
+    <th>first</th>
+    <th>last</th>
     <th>username</th>
     <th>email</th>
+    <th>client</th>
     <th>admin</th>
+    <th>accept</th>
+    <th>make</th>
+    <th>accept</th>
+    <th>make</th>
     <th></th>
     <th></th>
     <th></th>

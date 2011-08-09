@@ -17,6 +17,8 @@
     <td></td>
     <td></td>
   </tr>
+  <% @amount = 0.0 %>
+  <% @amount_paid = 0.0 %>
 
   <% @before_matching.each do |m| %>
     <% case m.status %>
@@ -174,5 +176,7 @@
 
 <br />
 
-<%= link_to 'delete all', delete_all_audits_path %>
+<% if admin_user? %>
+  <%= link_to 'delete all', delete_all_audits_path %>
+<% end %>
 </section>

@@ -7,11 +7,12 @@ class MatchingController < ApplicationController
 
   def new
     @matching = Matching.new
-    @title = "add new matching"
   end
 
   def create
-    @matching = Matching.new(params[:matching])
+    @matching = Matching.new( params[:matching] ) do
+      amount_paid = 0.0
+    end
     if @matching.save
       flash.now[:success] = "#{@matching.id} added."
       redirect_to @matching
@@ -27,6 +28,7 @@ class MatchingController < ApplicationController
       @audits = Audit.all.paginate( :page => params[:page] )
     else
       @matching = Matching.where( "payee_client_id = ? or payer_client_id = ?", current_user.client_id, current_user.client_id ).paginate( :page => params[:page] )
+      @audits = []
     end
   end
 

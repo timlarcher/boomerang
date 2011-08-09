@@ -36,6 +36,13 @@ section#matching {
   float: left;
 }
 
+section#bid {
+  float: left;
+}
+section#ask {
+  float: right;
+}
+
 h2 { font-size: 150%; }
 
 table { table-layout: fixed;
@@ -87,6 +94,7 @@ header nav ul li {
 header nav ul li a {
   padding: 0 5px;
   font-weight: bold;
+  color: #09c;
 }
 
 header nav ul li a:visited {

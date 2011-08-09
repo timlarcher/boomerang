@@ -1,4 +1,4 @@
-<%= form_for( @matching, :url => { :action => "update" } ) do |f| %>
+<%= form_for( @matching ) do |f| %>
  <%= render 'shared/error_messages', :object => f.object %>
  <div class="field">
     <%= f.label :payee_client_id, "Payee Client ID" %><br />

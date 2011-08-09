@@ -118,9 +118,9 @@
 
 <br />
 <% if admin_user? %>
-<%= link_to 'create entry', new_matching_path %>
-| <%= link_to 'perform matching run', do_match_matching_index_path %>
-| <%= link_to 'delete all', delete_all_matching_index_path %>
+  <%= link_to 'create entry', new_matching_path %>
+  | <%= link_to 'perform matching run', do_match_matching_index_path %>
+  | <%= link_to 'delete all', delete_all_matching_index_path %>
 <% end %>
 </section>
 
@@ -176,5 +176,7 @@
 
 <br />
 
-<%= link_to 'delete all', delete_all_audits_path %>
+<% if admin_user? %>
+  <%= link_to 'delete all', delete_all_audits_path %>
+<% end %>
 </section>

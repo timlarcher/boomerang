@@ -13,9 +13,12 @@
     <td><%= client.id %></td>
     <td><%= client.name %></td>
     <td><%= link_to 'show', client %></td>
-    <td><%= link_to 'edit', edit_client_path(client) %></td>
-    <td><%= link_to 'match', match_clients_path(client) %></td>
-    <td><%= link_to 'delete', client, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td> | <%= link_to 'offers', offers_client_path(client) %></td>
+  <% if admin_user? %>
+    <td> | <%= link_to 'match', match_client_path(client) %></td>
+    <td> | <%= link_to 'edit', edit_client_path(client) %></td>
+    <td> | <%= link_to 'delete', client, :confirm => 'Are you sure?', :method => :delete %></td>
+  <% end %>
   </tr>
 <% end %>
 </table>
@@ -24,4 +27,6 @@
 
 <br />
 
-<%= link_to 'create client', new_client_path %>
+<% if admin_user? %>
+  <%= link_to 'create client', new_client_path %>
+<% end %>

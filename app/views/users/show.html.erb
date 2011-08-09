@@ -1,7 +1,16 @@
 <p id="notice"><%= notice %></p>
-Name, ID: <%= @user.handle %>, <%= @user.id %>
-<br />Real name: <%= @user.first_name %> <%= @user.last_name %>
-<br /><br />
+id: <%= @user.id %> <br />
+handle: <%= @user.handle %> <br />
+first, last name: <%= @user.first_name %> <%= @user.last_name %> <br />
+email: <%= @user.email %> <br />
+admin: <%= @user.admin %> <br />
+accept bids: <%= @user.accept_bids %> <br />
+make bids: <%= @user.make_bids %> <br />
+accept offers: <%= @user.accept_offers %> <br />
+make offers: <%= @user.make_offers %> <br />
+
+<br />
+
 <%= link_to 'edit', edit_user_path(@user) %>
 | <%= link_to "delete", @user, :method => :delete, :confirm => "You sure?",
                               :title => "Delete #{@user.handle}" %>

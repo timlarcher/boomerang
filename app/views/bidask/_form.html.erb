@@ -1,0 +1,15 @@
+<%= form_for @bidask, :url => {:controller => "bidask", :action => "create"}, :html => { :method => :post } do |f| %>
+
+  <div class="field">
+    <%= f.label :quantity, "Quantity" %><br />
+    <%= f.text_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :amount, "Amount" %><br />
+    <%= f.text_field :amount %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

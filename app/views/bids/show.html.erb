@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Bid/Ask:</b>
+  <%= @offer.bidask %>
+</p>
+
+<p>
+  <b>Client:</b>
+  <%= @offer.client_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @offer.user_id %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @offer.quantity %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @offer.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_offer_path(@offer) %> |
+<%= link_to 'Back', offers_path %>

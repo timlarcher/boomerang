@@ -1,0 +1,88 @@
+include MatchingHelper
+
+module AggregateMatcher
+
+private
+
+def self.do_payoff! ( from_index )
+  # from_index is the index into the stacks that contains
+  # the first invoice to be paid down. We pay down the
+  # invoices from from_index to the last entry in the stacks.
+  # Then we pop all the entries off from the last to the
+  # entry that has zero amount. Then return.
+  number_of_invoices = @invoices_stack.count-1
+  payoff_amount = payoff_amount( @invoices_stack.slice(from_index..number_of_invoices) )
+  graph_id = @invoices_stack[from_index].id.to_s + ':' +
+      Time.now.strftime("%Y%m%d%H%M%S")
+  for i in from_index..number_of_invoices
+    puts "do_payoff: #{i}, iid=#{@invoices_stack[i].id}"
+    @invoices_stack[i].amount_paid += payoff_amount
+    if @invoices_stack[i].amount == @invoices_stack[i].amount_paid
+      @invoices_stack[i].status = 'C'
+      trans_type = :full_payment
+    else
+      @invoices_stack[i].status = 'P'
+      trans_type = :partial_payment
+    end
+    @invoices_stack[i].save
+    a = Audit.new( :trans_type => Audit.audit_type(trans_type),
+                   :invoice_id => @invoices_stack[i].id,
+                   :assoc_id => graph_id,
+                   :amount => payoff_amount )
+    a.save
+  end
+  # Truncate the stacks starting at from_index+1.
+  @invoices_stack.slice!( from_index+1..number_of_invoices )
+  @queries_stack.slice!( from_index+1..number_of_invoices )
+end # do_payoff!
+
+
+public
+
+def self.do_match ( client_id )
+
+  @invoices_stack = []
+  @queries_stack = []
+
+  current_query = Matching.where( "payee_client_id = ? and status != 'C'", client_id ).order('id DESC')
+  current_invoice = current_query.pop or nil
+
+  loop do
+    while current_invoice == nil
+      if @queries_stack.empty?
+        puts( "do_match: out of invoices for client - quitting." )
+        return
+      else
+        puts( "do_match: in first else." )
+        if current_query.empty?
+          current_query = @queries_stack.pop
+        end
+        current_invoice = current_query.pop
+      end
+    end
+
+    @invoices_stack.push( current_invoice )
+    @queries_stack.push( current_query )
+
+    for i in 0..@invoices_stack.count-1
+      if current_invoice.payer_client_id == @invoices_stack[i].payee_client_id
+        idx = i
+        break
+      end
+    end
+    puts "do_match: i: #{i}"
+    puts "do_match: i is nil" if i == nil
+    if idx != nil and @invoices_stack[i].status != "C"
+      puts "do_match: calling do_payoff."
+      self.do_payoff!(idx)
+      current_invoice = nil
+    else
+      puts( "do_match: in second else." )
+      current_query = Matching.where( "payee_client_id = ? and status != 'C'", current_invoice.payer_client_id ).order('id DESC')
+      current_invoice = current_query.pop or nil
+    end
+  end # loop do
+
+end # do_match
+
+end # class AggregateMatcher

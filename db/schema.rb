@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110718141516) do
+ActiveRecord::Schema.define(:version => 20110802225008) do
 
   create_table "audit", :force => true do |t|
     t.string   "assoc_id",   :null => false
@@ -21,7 +21,12 @@ ActiveRecord::Schema.define(:version => 20110718141516) do
     t.datetime "updated_at"
   end
 
-  create_table "audits", :force => true do |t|
+  create_table "bids", :force => true do |t|
+    t.integer  "client_id"
+    t.integer  "user_id"
+    t.integer  "quantity"
+    t.integer  "amount"
+    t.boolean  "closed",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -62,6 +67,16 @@ ActiveRecord::Schema.define(:version => 20110718141516) do
     t.decimal  "amount_paid"
   end
 
+  create_table "offers", :force => true do |t|
+    t.integer  "client_id"
+    t.integer  "user_id"
+    t.integer  "quantity"
+    t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "closed",     :default => false
+  end
+
   create_table "users", :force => true do |t|
     t.string  "first_name"
     t.string  "last_name"
@@ -71,6 +86,10 @@ ActiveRecord::Schema.define(:version => 20110718141516) do
     t.string  "password_salt"
     t.boolean "admin",              :default => false
     t.integer "client_id"
+    t.boolean "accept_bids",        :default => false
+    t.boolean "make_bids",          :default => false
+    t.boolean "accept_offers",      :default => false
+    t.boolean "make_offers",        :default => false
   end
 
 end

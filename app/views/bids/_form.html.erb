@@ -1,0 +1,26 @@
+<%= form_tag( client_bids_path ) do %>
+  <% if @bid.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bid.errors.count, "error") %> prohibited this bid from being saved:</h2>
+
+      <ul>
+      <% @bid.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= label_tag :quantity %><br />
+    <%= text_field_tag :quantity %>
+  </div>
+  <div class="field">
+    <%= label_tag :amount %><br />
+    <%= text_field_tag :amount %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "bid" %>
+  </div>
+
+<% end %>

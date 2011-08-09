@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   before_update :check_for_new_password
 
   belongs_to :client
+  has_many   :offers
+  has_many   :bids
 
   # Attempts to match handle to either name or email.
   # If finds a match, verifies password and
@@ -42,6 +44,28 @@ class User < ActiveRecord::Base
   def has_password?(submitted_password)
     self.encrypted_password == encrypt(submitted_password)
   end
+
+  def holds_debt_of? ( client_id )
+    Matching.where( "payee_client_id = ? and payer_client_id = ?",
+      self.client_id, client_id ) != nil
+  end
+
+#   def can_accept_bids?
+#     return self.accept_bids
+#   end
+#
+#   def can_make_bids?
+#     return self.make_bids
+#     true
+#   end
+#
+#   def can_accept_offers?
+#     return self.accept_offers
+#   end
+#
+#   def can_make_offers?
+#     return self.make_offers
+#   end
 
 private
 

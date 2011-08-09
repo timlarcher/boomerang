@@ -1,0 +1,48 @@
+<h1>Offers for <%= @client_name %>, <%= number_to_currency(@payables) %>
+available for purchase.</h1>
+
+<section class="bid">
+<h2>Bids</h2>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>User</th>
+    <th>Quantity</th>
+    <th>Amount</th>
+  </tr>
+  <% @bids.each do |b| %>
+  <tr>
+    <td><%= b.id %></td>
+    <td><%= b.user_id %></td>
+    <td><%= b.quantity %></td>
+    <td><%= b.amount %></td>
+    <td><%= link_to 'accept', accept_offer_path(b) %></td>
+  </tr>
+  <% end %>
+</table>
+</section>
+
+<%= link_to 'bid', new_bid_path  %>
+
+
+<section class="offer">
+<h2>Offers</h2>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>User</th>
+    <th>Quantity</th>
+    <th>Amount</th>
+  </tr>
+  <% @asks.each do |a| %>
+  <tr>
+    <td><%= a.id %></td>
+    <td><%= a.user_id %></td>
+    <td><%= a.quantity %></td>
+    <td><%= a.amount %></td>
+  </tr>
+<% end %>
+</table>
+</section>
+
+<%= link_to 'offer', new_offer_path %>

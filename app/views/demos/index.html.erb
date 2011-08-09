@@ -10,11 +10,11 @@
   <tr>
     <td><%= demo.name %></td>
     <td><%= demo.filename %></td>
-    <td><%= link_to 'Show', demo %></td>
-    <td>| <%= link_to 'Edit', edit_demo_path(demo) %></td>
-    <td>| <%= link_to 'Load', load_demo_path(demo) %></td>
-    <td>| <%= link_to 'Add', add_demo_path(demo) %></td>
-    <td>| <%= link_to 'Delete', demo, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td> | <%= link_to 'Show', demo %></td>
+    <td> | <%= link_to 'Edit', edit_demo_path(demo) %></td>
+    <td> | <%= link_to 'Load', load_demo_path(demo) %></td>
+    <td> | <%= link_to 'Add', add_demo_path(demo) %></td>
+    <td> | <%= link_to 'Delete', demo, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

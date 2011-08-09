@@ -13,7 +13,8 @@ class Matching < ActiveRecord::Base
       m.amount = l[2].to_d
       m.amount_paid = l[3].to_d
       m.status = l[4]
-      m.save
+      #m.save
+      m.add_or_update
     end
   end
 
@@ -28,7 +29,30 @@ class Matching < ActiveRecord::Base
     m.amount = invoice.amount
     m.amount_paid = 0.0
     m.status = 'A'
-    m.save
+    #m.save!
+    m.add_or_update
+  end
+
+  def add_or_update
+    if n = Matching.where( "payee_client_id = ? and payer_client_id = ?",
+                           self.payee_client_id, self.payer_client_id ).first
+      n.amount += self.amount
+      n.save
+    else
+      self.save
+    end
+  end
+
+  def amount_unpaid
+    self.amount - self.amount_paid
+  end
+
+  def self.payer ( client_id )
+    Matching.where( :payer_client_id => client_id ).first
+  end
+
+  def self.payee ( client_id )
+    Matching.where( :payee_client_id => client_id ).first
   end
 
 end

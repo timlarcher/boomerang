@@ -1,0 +1,23 @@
+<%= form_for @bidask, :url => {:controller => "bidask", :action => "create"}, :html => { :method => :post } do |f| %>
+
+  <div class="field">
+    <%= f.label :assoc_id, "Related ID" %><br />
+    <%= f.text_field :assoc_id %>
+  </div>
+  <div class="field">
+    <%= f.label :trans_type, "Transaction Type" %><br />
+    <%= f.text_field :trans_type %>
+  </div>
+  <div class="field">
+    <%= f.label :invoice_id, "Invoice ID" %><br />
+    <%= f.text_field :invoice_id %>
+  </div>
+  <div class="field">
+    <%= f.label :amount, "Amount" %><br />
+    <%= f.text_field :amount %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

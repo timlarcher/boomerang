@@ -3,7 +3,12 @@
   <td><%= user.last_name %></td>
   <td><%= user.handle %></td>
   <td><%= user.email %></td>
-  <td><%= "YES" if user.admin %></td>
+  <td><%= user.client_id %></td>
+  <td><%= user.admin ? "Y" : "N" %></td>
+  <td><%= user.accept_bids ? "Y" : "N" %></td>
+  <td><%= user.make_bids ? "Y" : "N"%></td>
+  <td><%= user.accept_offers ? "Y" : "N"%></td>
+  <td><%= user.make_offers ? "Y" : "N"%></td>
   <td><%= link_to "view", user_path(user) %></td>
   <td><%= link_to "edit", edit_user_path(user) %></td>
   <td><%= link_to "delete", user, :method => :delete, :confirm => "You sure?",

@@ -5,7 +5,9 @@
 <br />Name: <%= @client.name %>
 <br /><br />
 
-  <%= link_to 'edit', edit_client_path(@client) %>
-  | <%= link_to 'list clients', clients_path %>
+  <% if admin_user? %>
+    <%= link_to 'edit', edit_client_path(@client) %>
+      | <%= link_to 'list clients', clients_path %>
+  <% end %>
 
 </p>

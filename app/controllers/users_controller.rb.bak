@@ -45,7 +45,12 @@ class UsersController < ApplicationController
     @user.last_name = assign_if( params[:user][:last_name] )
     @user.handle = assign_if( params[:user][:handle] )
     @user.email = assign_if( params[:user][:email] )
+    @user.client_id = assign_if( params[:user][:client_id] )
     @user.admin = params[:user][:admin] == "1"
+    @user.admin = params[:user][:accept_bids] == "1"
+    @user.admin = params[:user][:make_bids] == "1"
+    @user.admin = params[:user][:accept_offers] == "1"
+    @user.admin = params[:user][:make_offers] == "1"
     @user.password = assign_if( params[:user][:password] )
     @user.password_confirmation = assign_if( params[:user][:password_confirmation] )
     if @user.save

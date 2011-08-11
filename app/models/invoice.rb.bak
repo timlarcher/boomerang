@@ -25,6 +25,7 @@ class Invoice < ActiveRecord::Base
             :po_date => i.po_date )
       if j and j.first
         Matching.add( j.first )
+        j.first.destroy
       else
         i.save
       end

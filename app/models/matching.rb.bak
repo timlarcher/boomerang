@@ -47,12 +47,12 @@ class Matching < ActiveRecord::Base
     self.amount - self.amount_paid
   end
 
-  def self.payer ( client_id )
-    Matching.where( :payer_client_id => client_id ).first
+  def self.payers ( client_id )
+    Matching.where( :payer_client_id => client_id )
   end
 
-  def self.payee ( client_id )
-    Matching.where( :payee_client_id => client_id ).first
+  def self.payees ( client_id )
+    Matching.where( :payee_client_id => client_id )
   end
 
 end

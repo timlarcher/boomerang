@@ -33,7 +33,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def self.base_dir
-    'ftp/'
+    './ftp/'
   end
 
   def self.in_dir ( client_id )

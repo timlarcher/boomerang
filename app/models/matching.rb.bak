@@ -5,7 +5,7 @@ class Matching < ActiveRecord::Base
   set_table_name "matching"
 
   def self.load_data ( filename )
-    filename = "c:\\rails\\boomerang\\db\\" + filename
+    filename = "./db/" + filename
     CSV.foreach(filename) do |l|
       m = Matching.new
       m.payee_client_id = l[0].to_i

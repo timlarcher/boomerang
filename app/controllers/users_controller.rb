@@ -3,9 +3,9 @@ class UsersController < ApplicationController
   include SessionsHelper
   include ApplicationHelper
 
-  before_filter :authenticate, :only => [ :show, :index, :edit, :update ]
-  before_filter :admin_user, :only => [ :destroy ]
-  before_filter :correct_user, :only => [ :edit, :update ]
+  #before_filter :authenticate, :only => [ :show, :index, :edit, :update ]
+  #before_filter :admin_user, :only => [ :destroy ]
+  #before_filter :correct_user, :only => [ :edit, :update ]
 
   def new
     @user = User.new
